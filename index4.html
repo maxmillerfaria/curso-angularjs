@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <title>Curso AngularJS</title>
+
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-messages/angular-messages.js"></script>
+    <script src="bower_components/angular-ui-growl/src/growl.js"></script>
+    <script src="bower_components/angular-br-filters/release/angular-br-filters.min.js"></script>
+    <script src="bower_components/angular-input-masks/angular-input-masks-standalone.min.js"></script>
+    <script src="app/js/index-controller-4.js"></script>
+    <script src="app/js/filters/maiusculo-filter.js"></script>
+    <script src="app/js/services/alert-service.js"></script>
+
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css"/>
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap-theme.css"/>
+    <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.css"/>
+    <link rel="stylesheet" href="bower_components/angular-ui-growl/css/growl.css"/>
+
+</head>
+<body ng-app="helloworld">
+
+<div ng-controller="IndexController" class="container">
+
+    <div class="panel-heading bg-primary row"><b>Cadastro de pessoas</b></div>
+
+    <form id="myForm" name="myForm">
+
+        <div class="panel-body row">
+
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <label for="itNome">
+                        <label>Nome</label>
+                        <i style="color: red" class="fa fa-asterisk"></i>
+                    </label>
+                    <input type="text"
+                           class="form-control"
+                           id="itNome"
+                           name="itNome"
+                           placeholder="Nome"
+                           required="required"
+                           ng-model="entidade.nome"
+                           ng-minlength="3"
+                           ng-maxlength="50"
+                           maxlength="50">
+
+                    <div class="help-block" ng-messages="myForm.itNome.$error" ng-show="myForm.itNome.$dirty">
+                        <div ng-messages-include="app/html/mensagens.html"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <label for="itEmail">
+                        <label>E-mail</label>
+                        <i style="color: red" class="fa fa-asterisk"></i>
+                    </label>
+                    <input type="email"
+                           class="form-control"
+                           id="itEmail"
+                           name="itEmail"
+                           placeholder="exemplo@email.com"
+                           required="required"
+                           ng-model="entidade.email"
+                           ng-minlength="3"
+                           ng-maxlength="50"
+                           maxlength="50"
+                            >
+
+                    <div class="help-block" ng-messages="myForm.itEmail.$error" ng-show="myForm.itEmail.$dirty">
+                        <div ng-messages-include="app/html/mensagens.html"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <label for="itDtNascimento">
+                        <label>Data nascimento</label>
+                        <i style="color: red" class="fa fa-asterisk"></i>
+                    </label>
+                    <input type="date"
+                           class="form-control"
+                           id="itDtNascimento"
+                           ng-model="entidade.nascimento"
+                           placeholder="dd/mm/aaaa">
+
+                    <div class="help-block" ng-messages="myForm.itEmail.$error" ng-show="myForm.itEmail.$dirty">
+                        <div ng-messages-include="app/html/mensagens.html"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <label for="itTelefone">
+                        <label>Telefone</label>
+                        <i style="color: red" class="fa fa-asterisk"></i>
+                    </label>
+                    <input type="text"
+                           class="form-control"
+                           id="itTelefone"
+                           name="itTelefone"
+                           placeholder="(DDD) 9999-99999"
+                           required
+                           ng-model="entidade.telefone"
+                           ui-br-phone-number>
+
+                    <div class="help-block" ng-messages="myForm.itTelefone.$error" ng-show="myForm.itTelefone.$dirty">
+                        <div ng-messages-include="app/html/mensagens.html"></div>
+                    </div>
+                </div>
+            </div>
+
+            <table class="table">
+                <tr>
+                    <th>Nome</th>
+                    <th>E-mail</th>
+                    <th>Nascimento</th>
+                    <th>Telefone</th>
+                </tr>
+                <tr ng-repeat="pessoa in listaDePessoas">
+                    <td ng-bind="pessoa.nome | maiusculo"></td>
+                    <td ng-bind="pessoa.email"></td>
+                    <td ng-bind="pessoa.nascimento | date:'dd/MM/yyyy'"></td>
+                    <td ng-bind="pessoa.telefone | brPhoneNumber"></td>
+                </tr>
+            </table>
+
+        </div>
+        <div class="panel-footer row">
+            <div class="col-sm-12">
+                <div class="pull-right">
+                    <button type="submit"
+                            class="btn btn-primary"
+                            ng-disabled="myForm.$invalid"
+                            ng-click="salvar()">
+                        <i class="fa fa-save"></i>
+                        Salvar
+                    </button>
+                    <button type="submit"
+                            class="btn btn-warning"
+                            ng-click="limpar()">
+                        <i class="fa fa-eraser"></i>
+                        Limpar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+</body>
+</html>
